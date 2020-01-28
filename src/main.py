@@ -11,6 +11,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import url_for
+from flask import redirect
 
 from flask import session
 from ModuloMongodb.ManagerMongodb import managermongo
@@ -93,5 +94,6 @@ def recibir_datos_dados():
         
 
 if __name__ == "__main__":
+    # app.run("127.0.0.1", 5000, debug=True)
     env_port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=env_port)   
+    app.run(host="0.0.0.0", port=env_port, debug=True)   

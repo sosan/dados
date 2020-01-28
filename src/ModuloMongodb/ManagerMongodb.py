@@ -15,13 +15,13 @@ class ManagerMongo:
             self.cliente = MongoClient(self.MONGO_URL.format(usuario, password, host), ssl_cert_reqs=False)
             self.db = self.cliente[db]
             self.cursorcoleccion = self.db[coleccion]
-            self.cursoradmin = self.db["admin"]
+            self.cursorusuarios = self.db["usuarios"]
 
         except ConnectionFailure:
             raise Exception("Servidor no disponible")
         
     def comprobarlogin(self, usuario, password):
-        ok = self.cursoradmin.find_one({"usuario": usuario, "password": password})
+        ok = self.cursorusuarios.find_one({"usuario": usuario, "password": password})
         if ok != None:
             if len(ok) == 1:
                 return True
@@ -42,4 +42,4 @@ class ManagerMongo:
         return False
     
 managermongo = ManagerMongo()
-managermongo.conectDB("pepito", "pepito", "cluster0-6oq5a.gcp.mongodb.net", "tirardados", "tiradas" )
+managermongo.conectDB("pepito", "pepito", "cluster0-6oq5a.gcp.mongodb.net", "dados", "tiradas" )
