@@ -4,27 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/main.css") }} ">
+    <title>Tirada datos</title>
 </head>
 <body>
     hola bienvenido {{ session["usuario"] }}
 
-    {% if listado %}
-    <p>Tu Tirada:<br>
+    {% if datos %}
+    <p>Tu Tirada: <br>
         {% for i in range(0, len) %}
-            {{ listado[i] }} &nbsp;
+              {{ datos.tirada[i] }} &nbsp;
+            {# <div class="main">{{ datos.tirada[i] }}</div> #}
+            <img src="{{ url_for("static", filename="images/{0}.png".format(datos.tirada[i])) }}" width="100" height="100">
         {% endfor %}
+        
 </p>
+<br>
+<p>Puntuacion Total: {{ datos.puntuacion_total }}</p>
+<p> PUNTUACION MAXIMA: {{ maximo }}</p>
 
     {% endif %}
 
     <form action="{{ recibir_datos_dados }}" method="POST">
-        Cantidad tiradas: <input type="text" name="cantidad_tiradas" value="1">
+        Cantidad tiradas: <input type="text" name="cantidad_tiradas" value="4">
         Dados:
-        <input type="checkbox" name="dados" value="4">
-        <input type="checkbox" name="dados" value="6">
-        <input type="checkbox" name="dados" value="8">
-        <input type="checkbox" name="dados" value="10">
+        4<input type="radio" name="dados" value="4" checked>
+        6<input type="radio" name="dados" value="6">
+        8<input type="radio" name="dados" value="8">
+        10<input type="radio" name="dados" value="10">
 
         <button type="submit">ENVIAR</button>
 

@@ -1,6 +1,9 @@
-
 import bson.objectid
 from pymongo import MongoClient
+from pymongo.collection import Collection
+from pymongo.database import Database
+from pymongo.errors import ConnectionFailure
+
 
 class ManagerMongo:
     def __init__(self):
@@ -19,27 +22,30 @@ class ManagerMongo:
 
         except ConnectionFailure:
             raise Exception("Servidor no disponible")
-        
+
     def comprobarlogin(self, usuario, password):
         ok = self.cursorusuarios.find_one({"usuario": usuario, "password": password})
         if ok != None:
-            if len(ok) == 1:
+            if len(ok) >= 1:
                 return True
         return False
-    
-    
-    def insertarelemento(self, usuario, tirada: list, puntuacion_total):
-        
-        ok = self.cursorcoleccion.insert_one(
-            {
-                "usuario": usuario,
-                "tirada": tirada,
-                "puntuacion_total": puntuacion_total
-            
-            })
+
+    def insertarelemento(self, elemento: dict):
+        resultado_puntuacionmaxima = self.cursorcoleccion.find_one({"_id": elemento["usuario"] + "_maximapuntuacion"})
+        maximo = resultado_puntuacionmaxima["maxima_puntuacion"]
+        if elemento["puntuacion_total"] > resultado_puntuacionmaxima["maxima_puntuacion"]:
+            ok = self.cursorcoleccion.update_one(
+                {"_id": elemento["usuario"] + "_maximapuntuacion"},
+                {'$set': {"maxima_puntuacion": elemento["puntuacion_total"]}}
+            )
+            maximo = elemento["puntuacion_total"]
+
+        ok = self.cursorcoleccion.insert_one(elemento)
         if ok.inserted_id != None:
-            return True
+            return True, maximo
         return False
-    
+
+
+
 managermongo = ManagerMongo()
-managermongo.conectDB("pepito", "pepito", "cluster0-6oq5a.gcp.mongodb.net", "dados", "tiradas" )
+managermongo.conectDB("pepito", "pepito", "cluster0-6oq5a.gcp.mongodb.net", "dados", "tiradas")

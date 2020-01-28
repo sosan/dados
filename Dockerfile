@@ -16,4 +16,4 @@ COPY . /src/
 
 EXPOSE 8000
 ENV FLASK_APP=main.py:app
-CMD ["python", "main.py"]
+CMD ["python", "src/main.py"]
