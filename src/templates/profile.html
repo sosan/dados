@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    hola bienvenido {{ session["usuario"] }}
+
+    {% if listado %}
+    <p>Tu Tirada:<br>
+        {% for i in range(0, len) %}
+            {{ listado[i] }} &nbsp;
+        {% endfor %}
+</p>
+
+    {% endif %}
+
+    <form action="{{ recibir_datos_dados }}" method="POST">
+        Cantidad tiradas: <input type="text" name="cantidad_tiradas" value="1">
+        Dados:
+        <input type="checkbox" name="dados" value="4">
+        <input type="checkbox" name="dados" value="6">
+        <input type="checkbox" name="dados" value="8">
+        <input type="checkbox" name="dados" value="10">
+
+        <button type="submit">ENVIAR</button>
+
+
+    </form>
+
+
+
+
+
+</body>
+</html>
