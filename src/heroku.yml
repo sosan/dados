@@ -1,0 +1,18 @@
+build:
+  docker:
+    web: Dockerfile
+    worker: worker/Dockerfile
+  config:
+    FLASK_ENV: development
+
+release:
+  command:
+    - ./testing.sh
+  image: worker
+
+run:
+  web: bundle exec puma -C config/puma.rb
+  worker:
+    command:
+      - ./testing.sh
+    image: web
