@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 APP DONDE SIMULAMOS TIRADA DE DADOS
 DADOS DE 4 6 8 10 CARAS 
@@ -81,11 +83,14 @@ def recibir_datos_dados():
         }
         
         ok, maximo = managermongo.insertarelemento(elemento)
+        
+        historico = managermongo.getall(session["usuario"])
 
-        return render_template("profile.html", datos=elemento, len=len(listado), maximo=maximo)
+        return render_template("profile.html", datos=elemento, len=len(listado), maximo=maximo, historico=historico, lenhistorico=len(historico))
 
 
-if __name__ == "__main__":
-    # app.run("127.0.0.1", 5000, debug=True)
-    env_port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=env_port, debug=True)
+# if __name__ == "__main__":
+#     # app.run("127.0.0.1", 5000, debug=True)
+#     env_port = int(os.environ.get("PORT", 5000))
+#     app.run(host="0.0.0.0", port=env_port)
+#     # app.run(host="0.0.0.0", port=env_port, debug=True)

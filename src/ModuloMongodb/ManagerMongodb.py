@@ -31,11 +31,11 @@ class ManagerMongo:
         return False
 
     def insertarelemento(self, elemento: dict):
-        resultado_puntuacionmaxima = self.cursorcoleccion.find_one({"_id": elemento["usuario"] + "_maximapuntuacion"})
+        resultado_puntuacionmaxima = self.cursorcoleccion.find_one({"_id": elemento["usuario"] })
         maximo = resultado_puntuacionmaxima["maxima_puntuacion"]
         if elemento["puntuacion_total"] > resultado_puntuacionmaxima["maxima_puntuacion"]:
             ok = self.cursorcoleccion.update_one(
-                {"_id": elemento["usuario"] + "_maximapuntuacion"},
+                {"_id": elemento["usuario"]},
                 {'$set': {"maxima_puntuacion": elemento["puntuacion_total"]}}
             )
             maximo = elemento["puntuacion_total"]
@@ -44,6 +44,14 @@ class ManagerMongo:
         if ok.inserted_id != None:
             return True, maximo
         return False
+    
+    def getall(self, usuario):
+        resultados = list(self.cursorcoleccion.find(
+            {"usuario": usuario}, {"_id": False}))
+        if resultados != None:
+            if len(resultados) > 0:
+                return resultados
+        return None
 
 
 
