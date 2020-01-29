@@ -8,7 +8,7 @@ build:
 release:
   command:
     - ./testing.sh
-  image: worker
+  image: web
 
 run:
   web: bundle exec puma -C config/puma.rb
