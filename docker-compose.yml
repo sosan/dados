@@ -1,0 +1,10 @@
+version: "3"
+services: 
+  web:
+    build: .
+    imagen: "dados"
+    container_name: "c_dados"
+    ports: 
+      - "5500:5000"
+    volumes: 
+      - /src:/home/usuarioapp/src
