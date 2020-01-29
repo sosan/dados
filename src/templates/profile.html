@@ -42,7 +42,7 @@
     {% if historico %}
         {% for i in range(0, lenhistorico) %}
             FECHA {{ historico[i].fecha }}<br>
-            PUNTUACION DE LA TIRADA: {{ historico[i].puntuacion }}<br>
+            PUNTUACION DE LA TIRADA: {{ historico[i].puntuacion_total }}<br>
             TIRADA: {{ historico[i].tirada }}<br>
             <hr>
         {% endfor %}

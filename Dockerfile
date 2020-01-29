@@ -35,6 +35,7 @@ EXPOSE 5000
 ENV PORT=5000
 
 # argumentos y varibles de entorno para flask --  cambiar development/production . devolopment=hot reloads ----
+# docker build -t dados:latest -t dados:v1 . --build-arg FLASK_ENV="development"
 ARG FLASK_ENV="development"
 ENV FLASK_ENV="${FLASK_ENV}" \
     FLASK_APP=main.py:app \

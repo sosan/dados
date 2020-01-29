@@ -24,6 +24,8 @@ app = Flask(__name__)
 app.secret_key = "gkajsajkaskd"
 
 
+# separalo por modulos
+
 @app.route("/", methods=["get"])
 def home():
     return render_template("index.html")
@@ -74,7 +76,8 @@ def recibir_datos_dados():
             rnd = random.randint(1, caras)
             suma += rnd            
             listado.append(rnd)
-            
+        
+        # sum(listado)
         elemento = {
             "usuario": session["usuario"],
             "tirada": listado,
