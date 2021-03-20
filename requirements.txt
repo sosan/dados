@@ -4,7 +4,7 @@ dnspython==1.16.0
 Flask==1.1.1
 formic==0.9b8
 itsdangerous==1.1.0
-Jinja2==2.11.0
+Jinja2==2.11.3
 livereload==2.6.1
 MarkupSafe==1.1.1
 pycodestyle==2.5.0
